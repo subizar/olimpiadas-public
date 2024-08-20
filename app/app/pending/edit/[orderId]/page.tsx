@@ -1,13 +1,10 @@
 import { validateRequest } from "@/lib/validate-request";
 import { redirect } from "next/navigation";
-import { updateProduct } from "@/app/dashboard/actions";
 import { db } from "@/db";
 import { orderProductTable, orderTable, productTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import Link from "next/link";
 import { Item } from "@/components/UserProductCartView";
 import EditCartView from "@/components/editOrderCartView"
-import CartView from "@/components/UserProductCartView";
 
 export default async function Page({ params }: { params: { orderId: string } }) {
   const { user, session } = await validateRequest();
@@ -27,10 +24,8 @@ export default async function Page({ params }: { params: { orderId: string } }) 
     return order;
   });
 
-  // Create a Set of product IDs from the existing order
   const existingProductIds = new Set(existingOrder.map(order => order.productId));
 
-  // Filter products to exclude those in the existing order
   let productsData: Item[] = products
     .filter(product => !existingProductIds.has(product.id))
     .map((product) => ({
@@ -50,10 +45,8 @@ export default async function Page({ params }: { params: { orderId: string } }) 
   }));
 
   return (
-    //<main className="min-h-screen p-4 bg-gradient-to-r from-gray-100 to-blue-100 text-gray-800">
       <div>
         <EditCartView data={productsData} existingOrder={existingOrderData} orderId={params.orderId} />
       </div>
-    //</main>
   );
 }

@@ -1,5 +1,5 @@
 import { sqliteTable, text, integer, real, primaryKey } from "drizzle-orm/sqlite-core";
-import { on } from "events";
+
 /*  TABLAS PARA EL AUTH*/
 export const userTable = sqliteTable("user", {
 	id: text("id").notNull().primaryKey(),

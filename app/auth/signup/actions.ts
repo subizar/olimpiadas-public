@@ -4,7 +4,6 @@ import { cookies } from "next/headers";
 import { lucia } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { generateIdFromEntropySize } from "lucia";
-import { ActionResult } from "next/dist/server/app-render/types";
 import { userTable } from "@/db/schema";
 
 export default async function Page() {}
@@ -14,8 +13,6 @@ export async function signup(formData: FormData){
 	let username = formData.get("username");
 	username = username as string;
 	username = username.toString();
-	// username must be between 4 ~ 31 characters, and only consists of lowercase letters, 0-9, -, and _
-	// keep in mind some database (e.g. mysql) are case insensitive
 	if (
 		typeof username !== "string" ||
 		username.length < 3 ||
@@ -35,7 +32,6 @@ export async function signup(formData: FormData){
 	}
 
 	const passwordHash = await hash(password, {
-		// recommended minimum parameters
 		memoryCost: 19456,
 		timeCost: 2,
 		outputLen: 32,
@@ -43,7 +39,6 @@ export async function signup(formData: FormData){
 	});
 	const userId = generateIdFromEntropySize(10); // 16 characters long
 	console.log(userId);
-	// TODO: check if username is already used
 	try {
 		await db.insert(userTable).values({
 			id: userId,

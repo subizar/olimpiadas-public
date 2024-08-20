@@ -8,9 +8,7 @@ import {
   DropResult,
 } from "@hello-pangea/dnd";
 import QuantitySelect from "@/components/QuantitySelect";
-import { createOrder } from "@/app/app/purchase/actions";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { editOrder } from "@/app/app/purchase/actions";
 export interface Item {
   id: string;
   productname: string;
@@ -28,9 +26,9 @@ export interface orderitem {
 const carrito: orderitem[] = [];
 const pedididosIniciales: Item[] = [];
 
-export default function CartView({ data }: { data: Item[] }) {
+export default function EditCartView({ data, existingOrder, orderId }: { data: Item[], existingOrder: Item[], orderId: string }) {
   const [products, setProductos] = useState(data);
-  const [pedidos, setPedidos] = useState(pedididosIniciales);
+  const [pedidos, setPedidos] = useState(existingOrder);
   const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
 
   const handleOnDragEnd = (result: DropResult) => {
@@ -83,12 +81,12 @@ export default function CartView({ data }: { data: Item[] }) {
     []
   );
 
-  function sendOrder() {
+  function updateOrder() {
     const order: orderitem[] = [];
     pedidos.forEach(({ id, unitprice }) => {
       order.push({ id, unitprice, quantity: quantities[id] });
     });
-    createOrder(order);
+    editOrder(order, orderId);
   }
   const total = useMemo(() => {
     return pedidos.reduce((sum, { id, unitprice }) => {
@@ -170,7 +168,7 @@ export default function CartView({ data }: { data: Item[] }) {
                               <QuantitySelect
                                 onQuantityChange={handleQuantityChange}
                                 productId={id}
-                                initialQuantity={quantities[id] || 1}
+                                initialQuantity={quantities[id] || existingOrder.find((order) => order.id === id)?.quantity || 1}
                               />
                             </li>
                           )}
@@ -187,10 +185,10 @@ export default function CartView({ data }: { data: Item[] }) {
                     <span className="text-2xl font-bold text-green-600">${total.toFixed(2)}</span>
                   </div>
                   <button
-                    onClick={sendOrder}
+                    onClick={updateOrder}
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
                   >
-                    Comprar
+                    Editar
                   </button>
                 </div>
               </div>

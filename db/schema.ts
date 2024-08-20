@@ -30,6 +30,7 @@ export const orderTable = sqliteTable("order", {
 		.references(() => userTable.id),
 	orderDate: integer("order_date").notNull(),
 	fullfiledDate: integer("fullfiled_date"),
+	status: text("status", {enum: ["pending", "fulfilled", "cancelled"]}).notNull().default("pending"),
 	totalPrice: integer("total_price").notNull(),
 });
 

@@ -25,7 +25,7 @@ export default function QuantitySelect({ onQuantityChange, productId, initialQua
   }, [quantity, productId, onQuantityChange]);
 
   return (
-    <div className="bg-background rounded-lg border p-1 flex items-center justify-between max-w-xs w-full">
+    <div className="bg-background rounded-lg border p-1 flex items-center justify-between max-w-xs space-x-3 w-40 pr-3 pl-3">
       <label htmlFor="number-picker" className="text-sm font-medium">
         Cantidad
       </label>

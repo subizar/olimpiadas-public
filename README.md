@@ -8,7 +8,7 @@ escriben "winget install Git.Git" en Powershell
 
 ## Descargando el proyecto
 Van a una carpeta  que les quede cómoda y escriben:
-> git clone https://{usuario}:{pas}@github.com/subizar/olimpiadas.git (reemplazan con su usuario de github y pas, sin los corchetes)
+> git clone https://{usuario}:{pas}@github.com/subizar/olimpiadas-public.git (reemplazan con su usuario de github y pas, sin los corchetes)
 
 Para conseguir un PAS, tienen que ir a los ajustes de github -> developer settings -> personal access tokens -> tokens (classic) -> generate new token (classic) -> expiración 30 dias, todos los permisos de "repo" -> guardan el token en algun archivo, porque solo pueden verlo una vez
 

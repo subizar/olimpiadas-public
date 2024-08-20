@@ -53,10 +53,10 @@ export default async function Sidebar() {
         {!user && (
           <>
             <Link href="/auth/login" className="block py-2 px-4 rounded hover:bg-gray-700">
-              Login
+              Iniciar sesión
             </Link>
             <Link href="/auth/signup" className="block py-2 px-4 rounded hover:bg-gray-700">
-              Signup
+              Registrarse
             </Link>
           </>
         )}

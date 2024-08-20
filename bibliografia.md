@@ -1,0 +1,1 @@
+Next.js. (2024, 10 de junio). Data Fetching. En Server Components. nextjs.org

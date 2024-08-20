@@ -12,7 +12,7 @@ export async function cancelOrder(formData: FormData) {
     status: "cancelled",
     fullfiledDate: new Date().getTime(),
   }).where(eq(orderTable.id, orderId));
-  return redirect("/c/dashboard/pending");
+  return redirect("/dashboard/pending");
 }
 
 export async function completeOrder(formData: FormData) {
@@ -21,5 +21,5 @@ export async function completeOrder(formData: FormData) {
     status: "fulfilled",
     fullfiledDate: new Date().getTime(),
   }).where(eq(orderTable.id, orderId));
-  return redirect("/c/dashboard/pending");
+  return redirect("/dashboard/pending");
 }
